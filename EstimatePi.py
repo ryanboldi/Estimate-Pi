@@ -14,14 +14,14 @@ PI = math.pi
 SQUARESIZE = 2
 RADIUS = SQUARESIZE/2
 SQUAREA = SQUARESIZE*SQUARESIZE
-NEEDLESMAX = 100000
+NEEDLESMAX = 500000
 
 circleNeedles = 0
 
 
 needleAmount = []
 errorAmount = []
-
+piValues = []
 
 for i in range(0, NEEDLESMAX):
     #random.random returns 0 <= x < 1
@@ -37,7 +37,7 @@ for i in range(0, NEEDLESMAX):
     
     needleAmount.append(i)
     errorAmount.append(error)
-
+    piValues.append(pi)
 
 
 plt.plot(needleAmount, errorAmount, ls = 'steps')
@@ -45,3 +45,5 @@ plt.grid()
 plt.xlabel("Number of needles Dropped")
 plt.ylabel("Error")
 plt.show()
+
+print("Best Value of pi ",  piValues[-1])
