@@ -41,4 +41,7 @@ for i in range(0, NEEDLESMAX):
 
 
 plt.plot(needleAmount, errorAmount, ls = 'steps')
+plt.grid()
+plt.xlabel("Number of needles Dropped")
+plt.ylabel("Error")
 plt.show()
