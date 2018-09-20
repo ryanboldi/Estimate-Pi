@@ -14,36 +14,45 @@ PI = math.pi
 SQUARESIZE = 2
 RADIUS = SQUARESIZE/2
 SQUAREA = SQUARESIZE*SQUARESIZE
-NEEDLESMAX = 500000
-
-circleNeedles = 0
+NEEDLESMAX = 100000000
 
 
-needleAmount = []
-errorAmount = []
-piValues = []
 
-for i in range(0, NEEDLESMAX):
-    #random.random returns 0 <= x < 1
-    x = (random.random()*SQUARESIZE)-RADIUS #-1 <= x < 1
-    y = (random.random()*SQUARESIZE)-RADIUS
+
+
+def randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX):
     
-    if (x**2 + y**2 < 1):   #1 for radius of 1 (root(1))
-        circleNeedles += 1
+    circleNeedles = 0
+    
+    needleAmount = []
+    errorAmount = []
+    piValues = []
+    
+    for i in range(0, NEEDLESMAX):
+        #random.random returns 0 <= x < 1
+        x = (random.random()*SQUARESIZE)-RADIUS #-1 <= x < 1
+        y = (random.random()*SQUARESIZE)-RADIUS
         
-    pi = (circleNeedles/NEEDLESMAX)*SQUAREA
-    error = math.fabs(PI-pi)
+        if (x**2 + y**2 < 1):   #1 for radius of 1 (root(1))
+            circleNeedles += 1
+            
+        pi = (circleNeedles/NEEDLESMAX)*SQUAREA
+        error = math.fabs(PI-pi)
     
     
-    needleAmount.append(i)
-    errorAmount.append(error)
-    piValues.append(pi)
+        needleAmount.append(i)
+        errorAmount.append(error)
+        piValues.append(pi)
+    
+    return needleAmount,errorAmount,piValues
 
 
-plt.plot(needleAmount, errorAmount, ls = 'steps')
+randomNeedle, randomError, randomPi, = randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX)
+
+plt.plot(randomNeedle, randomError, ls = 'steps')
 plt.grid()
 plt.xlabel("Number of needles Dropped")
 plt.ylabel("Error")
 plt.show()
 
-print("Best Value of pi ",  piValues[-1])
+print("Best Value of pi ",  randomPi[-1])
