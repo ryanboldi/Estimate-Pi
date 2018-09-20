@@ -9,12 +9,13 @@ Created By: Ryan Boldi
 import math
 import matplotlib.pyplot as plt
 import random
+import numpy as np
 
 PI = math.pi
 SQUARESIZE = 2
 RADIUS = SQUARESIZE/2
 SQUAREA = SQUARESIZE*SQUARESIZE
-NEEDLESMAX = 100000000
+NEEDLESMAX = 10000
 
 
 
@@ -27,6 +28,7 @@ def randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX):
     needleAmount = []
     errorAmount = []
     piValues = []
+    
     
     for i in range(0, NEEDLESMAX):
         #random.random returns 0 <= x < 1
@@ -47,12 +49,44 @@ def randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX):
     return needleAmount,errorAmount,piValues
 
 
-randomNeedle, randomError, randomPi, = randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX)
 
-plt.plot(randomNeedle, randomError, ls = 'steps')
+def meshThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX):
+    circleNeedles = 0
+    
+    needleAmount = []
+    errorAmount = []
+    piValues = []
+    
+    needlesPerRow = np.sqrt(NEEDLESMAX)
+    dif = SQUARESIZE/needlesPerRow
+    
+    x = 0
+    y = 0
+    for i in range (0, NEEDLESMAX):
+            
+            x+=dif
+            y+=dif
+        
+            if (x**2 + y**2 < 1):   #1 for radius of 1 (root(1))
+                circleNeedles += 1
+                
+            pi = (circleNeedles/NEEDLESMAX)*SQUAREA
+            error = math.fabs(PI-pi)
+    
+    
+            needleAmount.append(i)
+            errorAmount.append(error)
+            piValues.append(pi)
+    
+    return needleAmount,errorAmount,piValues
+
+#randomNeedle, randomError, randomPi = randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX)
+meshNeedle, meshError, meshPi = meshThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX)
+
+plt.plot(meshNeedle, meshError, ls = 'steps')
 plt.grid()
 plt.xlabel("Number of needles Dropped")
 plt.ylabel("Error")
 plt.show()
 
-print("Best Value of pi ",  randomPi[-1])
+print("Best Value of pi ",  meshPi[-1])
