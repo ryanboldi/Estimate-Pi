@@ -1,7 +1,7 @@
 import math
-import matplotlib.pyplot as plt
-from matplotlib import style
-style.use('seaborn-ticks')
+#import matplotlib.pyplot as plt
+#from matplotlib import style
+#style.use('seaborn-ticks')
 import random
 import numpy as np
 
@@ -73,10 +73,10 @@ for i in range (0,num):
 acPi = pivalue/num
 #average pi values over 1000 simulations
 
-plt.plot(randomNeedle, randomError, ls = 'steps')
-plt.grid()
-plt.xlabel("Number of needles dropped")
-plt.ylabel("Error")
-plt.show()
+#plt.plot(randomNeedle, randomError, ls = 'steps')
+#plt.grid()
+#plt.xlabel("Number of needles dropped")
+#plt.ylabel("Error")
+#plt.show()
 
 print("Best Value of pi ",  acPi)
