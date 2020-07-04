@@ -1,7 +1,7 @@
 import math
-#import matplotlib.pyplot as plt
-#from matplotlib import style
-#style.use('seaborn-ticks')
+import matplotlib.pyplot as plt
+from matplotlib import style
+style.use('seaborn-ticks')
 import random
 import numpy as np
 
@@ -39,44 +39,41 @@ def randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX):
 #maybe if there was a mesh of needles dropped with a linear spacing, it would increase the accuracy
 def meshThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX):
     circleNeedles = 0
+    totalNeedles = 0
     
     needleAmount = []
     errorAmount = []
     piValues = []
     
     line = int(np.floor(np.sqrt(NEEDLESMAX)))
-    print(line)
-    vals = np.linspace(0,2,line)
+    vals = np.linspace(-1,1,line)
     
-    for i in range(1,len(vals)):
-        for j in range(1, len(vals)):
-            x = vals[i]
-            y = vals[j]
-            
+    for x in vals:
+        for y in vals:
+            totalNeedles+=1
             if (x**2 + y**2 < 1):   #1 for radius of 1 (root(1))
                 circleNeedles += 1
-            
-            pi = (circleNeedles/((i*line)+j))*SQUAREA
+            pi = (circleNeedles/totalNeedles)*SQUAREA
             error = math.fabs(PI-pi)
 
-            needleAmount.append((i*line)+j)
+            needleAmount.append(totalNeedles)
             errorAmount.append(error)
             piValues.append(pi)
     
     return needleAmount, errorAmount, piValues
 
 pivalue = 0
-num = 100
+num = 1
 for i in range (0,num):
-        randomNeedle, randomError, randomPi = randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX)
+        randomNeedle, randomError, randomPi = meshThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX)
         pivalue += randomPi[-1]
 acPi = pivalue/num
 #average pi values over 1000 simulations
 
-#plt.plot(randomNeedle, randomError, ls = 'steps')
-#plt.grid()
-#plt.xlabel("Number of needles dropped")
-#plt.ylabel("Error")
-#plt.show()
+plt.plot(randomNeedle, randomError, ls = 'steps')
+plt.grid()
+plt.xlabel("Number of needles dropped")
+plt.ylabel("Error")
+plt.show()
 
-print("Best Value of pi ",  acPi)
+print("Average Value of pi ",  acPi)
