@@ -9,11 +9,12 @@ PI = math.pi
 SQUARESIZE = 2
 RADIUS = SQUARESIZE/2
 SQUAREA = SQUARESIZE*SQUARESIZE
-NEEDLESMAX = 100000
+NEEDLESMAX = 10000000
 
 def randomThrows(SQUARESIZE, RADIUS, SQUAREA, NEEDLESMAX):
     
     circleNeedles = 0
+    
     
     needleAmount = []
     errorAmount = []
@@ -72,8 +73,10 @@ acPi = pivalue/num
 
 plt.plot(randomNeedle, randomError, ls = 'steps')
 plt.grid()
+plt.title(np.format_float_scientific(NEEDLESMAX, trim='-') + " Needles Dropped in a Mesh ; pi: " + str(acPi))
 plt.xlabel("Number of needles dropped")
 plt.ylabel("Error")
 plt.show()
+
 
 print("Average Value of pi ",  acPi)
